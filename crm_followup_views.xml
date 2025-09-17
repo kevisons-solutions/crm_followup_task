@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Form View Extension -->
+    <record id="view_crm_lead_form_followup" model="ir.ui.view">
+        <field name="name">crm.lead.form.followup</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <group name="lead_details" position="after">
+                <group string="Follow-up">
+                    <field name="followup_date"/>
+                    <field name="next_action"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <!-- Kanban View Extension -->
+    <record id="view_crm_lead_kanban_followup" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.followup</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_kanban"/>
+        <field name="arch" type="xml">
+            <templates>
+                <t t-extend="kanban-box">
+                    <t t-jquery="div.o_kanban_tags" position="after">
+                        <div class="o_kanban_followup">
+                            <span t-if="record.followup_date.value">
+                                📅 <t t-esc="record.followup_date.value"/>
+                            </span>
+                            <span t-if="record.next_action.value">
+                                🔔 <t t-esc="record.next_action.value"/>
+                            </span>
+                        </div>
+                    </t>
+                </t>
+            </templates>
+        </field>
+    </record>
+</odoo>
